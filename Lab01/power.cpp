@@ -14,9 +14,7 @@ double power(double base, int exponent, int& steps) {
     }
 
     if (exponent < 0) {
-        int tempSteps = 0;
-        double result = 1.0 / power(base, -exponent, tempSteps);
-        steps = tempSteps;
+        double result = 1.0 / power(base, -exponent, steps);
         return result;
     }
 
@@ -36,9 +34,7 @@ double quickPower(double base, int exponent, int& steps) {
     }
 
     if (exponent < 0) {
-        int tempSteps = 0;
-        double result = 1.0 / quickPower(base, -exponent, tempSteps);
-        steps = tempSteps;
+        double result = 1.0 / quickPower(base, -exponent, steps);
         return result;
     }
 
@@ -59,6 +55,7 @@ double quickPower(double base, int exponent, int& steps) {
 }
 
 double power_rec(double base, int exponent, int& steps) {
+    if (steps == -1) steps = 0;
     steps++;
 
     if (exponent == 0) {
@@ -80,6 +77,7 @@ double power_rec(double base, int exponent, int& steps) {
 }
 
 double quickPower_rec(double base, int exponent, int& steps) {
+    if (steps == -1) steps = 0;
     steps++;
 
     if (exponent == 0) {
@@ -100,13 +98,14 @@ double quickPower_rec(double base, int exponent, int& steps) {
     if (exponent % 2 == 0) {
         double half = quickPower_rec(base, exponent / 2, steps);
         return half * half;
-    } else {
+    }
+    else {
         return base * quickPower_rec(base, exponent - 1, steps);
     }
 }
 
 bool testQuickPower(double base, int exponent) {
-    int steps1, steps2;
+    int steps1 = 0, steps2 = 0;
 
     double result1 = power(base, exponent, steps1);
     double result2 = quickPower(base, exponent, steps2);
@@ -116,7 +115,7 @@ bool testQuickPower(double base, int exponent) {
 }
 
 bool testRecursiveFunctions(double base, int exponent) {
-    int steps_iter, steps_rec, steps_quick_iter, steps_quick_rec;
+    int steps_iter = 0, steps_rec = -1, steps_quick_iter = 0, steps_quick_rec = -1;
 
     double result_iter = power(base, exponent, steps_iter);
     double result_rec = power_rec(base, exponent, steps_rec);
@@ -133,7 +132,7 @@ bool testRecursiveFunctions(double base, int exponent) {
 }
 
 void compareAlgorithms(double base, int exponent) {
-    int steps1, steps2;
+    int steps1 = 0, steps2 = 0;
 
     cout << "\n" << string(50, '-') << endl;
     cout << "Comparison of iterative algorithms for " << base << "^" << exponent << endl;
@@ -157,14 +156,14 @@ void compareAlgorithms(double base, int exponent) {
 
     if (steps2 > 0) {
         cout << "  Speedup: " << fixed << setprecision(2)
-             << (double)steps1 / steps2 << "x faster" << endl;
+            << (double)steps1 / steps2 << "x faster" << endl;
     }
 
     cout << "  Correctness test: " << (testQuickPower(base, exponent) ? "Passed" : "Failed") << endl;
 }
 
 void compareAllAlgorithms(double base, int exponent) {
-    int steps_iter, steps_rec, steps_quick_iter, steps_quick_rec;
+    int steps_iter = 0, steps_rec = -1, steps_quick_iter = 0, steps_quick_rec = -1;
 
     cout << "\n" << string(50, '-') << endl;
     cout << "Full comparison of all algorithms for " << base << "^" << exponent << endl;
@@ -206,14 +205,14 @@ void compareAllAlgorithms(double base, int exponent) {
     cout << "\nMethod comparisons:" << endl;
     if (steps_iter > 0) {
         cout << "  Recursive vs Iterative (standard): "
-             << fixed << setprecision(2) << (double)steps_rec / steps_iter << ":1" << endl;
+            << fixed << setprecision(2) << (double)steps_rec / steps_iter << ":1" << endl;
     }
     if (steps_quick_iter > 0) {
         cout << "  Recursive vs Iterative (fast): "
-             << fixed << setprecision(2) << (double)steps_quick_rec / steps_quick_iter << ":1" << endl;
+            << fixed << setprecision(2) << (double)steps_quick_rec / steps_quick_iter << ":1" << endl;
     }
 
-    int min_steps = min({steps_iter, steps_rec, steps_quick_iter, steps_quick_rec});
+    int min_steps = min({ steps_iter, steps_rec, steps_quick_iter, steps_quick_rec });
     cout << "\nFASTEST algorithm (" << min_steps << " operations): ";
     if (min_steps == steps_iter) cout << "Iterative standard" << endl;
     else if (min_steps == steps_rec) cout << "Recursive standard" << endl;
@@ -244,12 +243,13 @@ void runTests() {
         bool testPassed = testQuickPower(base, exponent);
 
         cout << "Test " << (i + 1) << ": " << fixed << setprecision(2)
-             << base << "^" << exponent;
+            << base << "^" << exponent;
 
         if (testPassed) {
             cout << " - Passed" << endl;
             passedTests++;
-        } else {
+        }
+        else {
             cout << " - Failed" << endl;
         }
     }
@@ -282,12 +282,13 @@ void runRecursiveTests() {
         bool testPassed = testRecursiveFunctions(base, exponent);
 
         cout << "Test " << (i + 1) << ": " << fixed << setprecision(2)
-             << base << "^" << exponent;
+            << base << "^" << exponent;
 
         if (testPassed) {
             cout << " - Passed" << endl;
             passedTests++;
-        } else {
+        }
+        else {
             cout << " - Failed" << endl;
         }
     }
