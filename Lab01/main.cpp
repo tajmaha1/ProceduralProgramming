@@ -5,8 +5,8 @@
 using namespace std;
 
 int main() {
-    cout << "Лабораторна робота: порівняння алгоритмів піднесення до степеню" << endl;
-    
+    cout << "Laboratory Work: Comparison of Power Algorithms" << endl;
+
     double testCases[][2] = {
         {2.0, 4},
         {3.0, 5},
@@ -14,29 +14,29 @@ int main() {
         {2.5, 6},
         {2.0, 16}
     };
-    
+
     int numCases = sizeof(testCases) / sizeof(testCases[0]);
-    
+
     for (int i = 0; i < numCases; i++) {
         double base = testCases[i][0];
         int exponent = (int)testCases[i][1];
-        
-        cout << "\n Тест " << (i + 1) << ": " << base << "^" << exponent  << endl;
-        
+
+        cout << "\n Test " << (i + 1) << ": " << base << "^" << exponent << endl;
+
         compareAlgorithms(base, exponent);
-        
+
         compareAllAlgorithms(base, exponent);
     }
-    
-    cout << "\n=== Тестування функцій ===" << endl;
+
+    cout << "\n=== Function Testing ===" << endl;
     runTests();
     runRecursiveTests();
-    
-    cout << "\n==== Висновки ====" << endl;
-    cout << "1. Швидкі алгоритми працюють краще за звичайні" << endl;
-    cout << "2. Ітеративні версії швидші за рекурсивні" << endl;
-    cout << "3. Всі функції дають правильні результати" << endl;
-    cout << "\nРобота виконана." << endl;
-    
+
+    cout << "\n==== Conclusions ====" << endl;
+    cout << "1. Fast algorithms perform better than standard ones" << endl;
+    cout << "2. Iterative versions are faster than recursive ones" << endl;
+    cout << "3. All functions return correct results" << endl;
+    cout << "\nWork completed." << endl;
+
     return 0;
 }
