@@ -18,4 +18,9 @@ bool verifySorted();
 bool verifySameElements();
 void runTest(std::vector<int> data, int testNum, const std::string& description);
 
+bool checkPartitionInvariant(int left, int i, int j, int right, int pivot);
+bool checkSortedRange(int left, int right);
+bool checkAllElementsInRange(int left, int right);
+bool checkArraySorted();
+
 #endif
